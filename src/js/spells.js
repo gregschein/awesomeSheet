@@ -137,6 +137,17 @@ var spells = (function() {
     });
   };
 
+  function _findSpell() {
+    var allSpells;
+    helper.loadJSON(function(response) {
+      allSpells = JSON.parse(response);
+      // console.log(allSpells);
+      for (var i = 0; i < allSpells.length; i++) {
+        console.log(allSpells[i].name);
+      };
+    });
+  };
+
   function _storeSpellNote(element) {
     var spellLevel = parseInt(element.dataset.spellLevel, 10);
     var spellCount = parseInt(element.dataset.spellCount, 10);
@@ -494,7 +505,8 @@ var spells = (function() {
   return {
     clear: clear,
     bind: bind,
-    render: render
+    render: render,
+    all: _findSpell
   };
 
 })();
