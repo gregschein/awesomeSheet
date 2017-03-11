@@ -104,8 +104,6 @@ var spells = (function() {
 
   function _bind_spellKnownItem(element) {
     element.addEventListener("click", function() {
-      clearTimeout(storeSpellTimer);
-      storeSpellTimer = setTimeout(delayUpdate, 1000, this);
       _update_spellObject(this);
       _update_spellButton(this);
       _checkSpellState();
@@ -122,7 +120,6 @@ var spells = (function() {
     textareaBlock.setAttribute("class", "m-spell-note-textarea textarea u-full-width");
     textareaBlock.setAttribute("contenteditable", "true");
     textareaBlock.setAttribute("tabindex", "3");
-    textareaBlock.setAttribute("placeholder", "Spell range, casting time or duration? Anything else?");
     textareaBlock.setAttribute("data-spell-level", spellLevel);
     textareaBlock.setAttribute("data-spell-count", spellCount);
     div.appendChild(textareaBlock);
@@ -137,15 +134,31 @@ var spells = (function() {
     });
   };
 
-  function _findSpell() {
-    var allSpells;
-    helper.loadJSON(function(response) {
-      allSpells = JSON.parse(response);
-      // console.log(allSpells);
-      for (var i = 0; i < allSpells.length; i++) {
-        console.log(allSpells[i].name);
-      };
-    });
+  function _findSpell(spellName) {
+
+    console.log("looking up", spellName);
+
+    var logit = function(data) {
+      var allSpells = JSON.parse(data);
+        for (var i = 0; i < allSpells.length; i++) {
+          if (allSpells[i].name == spellName) {
+            console.log(allSpells[i]);
+            var noteArea = helper.e(".m-spell-note-textarea");
+            noteArea.insertAdjacentHTML("beforeend", "<p><strong>School</strong> " + allSpells[i].school + "</p>");
+            noteArea.insertAdjacentHTML("beforeend", "<p><strong>Casting Time</strong> " + allSpells[i].casting_time + "</p>");
+            noteArea.insertAdjacentHTML("beforeend", "<p><strong>Components</strong> " + allSpells[i].components + "</p>");
+            noteArea.insertAdjacentHTML("beforeend", "<p><strong>Range</strong> " + allSpells[i].range + "</p>");
+            noteArea.insertAdjacentHTML("beforeend", "<p><strong>Area</strong> " + allSpells[i].area + "</p>");
+            noteArea.insertAdjacentHTML("beforeend", "<p><strong>Duration</strong> " + allSpells[i].casting_time + "</p>");
+            noteArea.insertAdjacentHTML("beforeend", "<p><strong>Saving Throw</strong> " + allSpells[i].saving_throw + "</p>");
+            noteArea.insertAdjacentHTML("beforeend", allSpells[i].description_formated);
+            noteArea.insertAdjacentHTML("beforeend", allSpells[i].description_formated);
+          };
+        };
+    };
+
+    helper.loadJSON("../json/spells.json", logit);
+
   };
 
   function _storeSpellNote(element) {
@@ -165,7 +178,6 @@ var spells = (function() {
     var spellLevel = parseInt(button.dataset.spellLevel, 10);
     var spellCount = parseInt(button.dataset.spellCount, 10);
     var spellObject = sheet.getCharacter().spells.book[spellLevel]["level_" + spellLevel][spellCount];
-    // state prepare
     if (spellState == "prepare") {
       var preparedIcon = document.createElement("span");
       preparedIcon.setAttribute("class", "icon-radio-button-checked js-spell-mark-checked");
@@ -175,18 +187,14 @@ var spells = (function() {
       if (spellMarks.children.length > 0) {
         helper.addClass(button, "button-primary");
       };
-    };
-    // state unprepare
-    if (spellState == "unprepare") {
+    } else if (spellState == "unprepare") {
       if (spellMarks.lastChild) {
         spellMarks.lastChild.remove();
       };
       if (spellMarks.children.length <= 0) {
         helper.removeClass(button, "button-primary");
       };
-    };
-    // state cast
-    if (spellState == "cast") {
+    } else if (spellState == "cast") {
       var all_spellsMarks = spellMarks.children;
       var all_remainingPrepared = spellMarks.querySelectorAll(".js-spell-mark-checked").length;
       for (var i = 0; i < all_spellsMarks.length; i++) {
@@ -215,9 +223,7 @@ var spells = (function() {
           all_remainingPrepared--;
         };
       };
-    };
-    // state active
-    if (spellState == "active") {
+    } else if (spellState == "active") {
       var activeIcon = document.createElement("span");
       activeIcon.setAttribute("class", "icon-play-arrow");
       if (spellActive.children.length > 0) {
@@ -225,11 +231,12 @@ var spells = (function() {
       } else {
         spellActive.appendChild(activeIcon);
       };
-    };
-    // state remove
-    if (spellState == "remove") {
+    } else if (spellState == "remove") {
       _destroy_spellBook(spellLevel);
       _render_spell(sheet.getCharacter().spells.book[spellLevel]["level_" + spellLevel], spellLevel);
+    } else {
+      _spellNoteModalContent(button);
+      _findSpell(sheet.getCharacter().spells.book[spellLevel]["level_" + spellLevel][spellCount].name);
     };
   };
 
@@ -238,7 +245,6 @@ var spells = (function() {
     var spellState = spellRoot.dataset.spellState;
     var spellLevel = parseInt(button.dataset.spellLevel, 10);
     var spellCount = parseInt(button.dataset.spellCount, 10);
-    // state prepare
     if (spellState == "prepare") {
       if (sheet.getCharacter().spells.book[spellLevel]["level_" + spellLevel][spellCount].prepared < 30) {
         sheet.getCharacter().spells.book[spellLevel]["level_" + spellLevel][spellCount].prepared++
@@ -273,8 +279,6 @@ var spells = (function() {
       _storeLastRemovedSpell(spellLevel, spellCount, sheet.getCharacter().spells.book[spellLevel]["level_" + spellLevel][spellCount]);
       sheet.getCharacter().spells.book[spellLevel]["level_" + spellLevel].splice(spellCount, 1);
       snack.render(helper.truncate(spellName, 40, true) + " removed.", "Undo", _restoreLastRemovedSpell, 6000);
-    } else {
-      _spellNoteModalContent(button);
     };
     sheet.storeCharacters();
   };
@@ -385,8 +389,6 @@ var spells = (function() {
       note: this.note = spellNote || ""
     };
   };
-
-  var storeSpellTimer = null;
 
   function delayUpdate() {
     var spellRoot = helper.e(".js-spells");
@@ -505,8 +507,7 @@ var spells = (function() {
   return {
     clear: clear,
     bind: bind,
-    render: render,
-    all: _findSpell
+    render: render
   };
 
 })();
