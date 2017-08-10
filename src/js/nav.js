@@ -225,9 +225,9 @@ var nav = (function() {
     var body = helper.e("body");
     var nav = helper.e(".js-is-open");
     if (nav) {
-      helper.addClass(body, "is-nav-open");
+      helper.addClass(body, "is-scrolll-disabled");
     } else {
-      helper.removeClass(body, "is-nav-open");
+      helper.removeClass(body, "is-scrolll-disabled");
     };
   };
 

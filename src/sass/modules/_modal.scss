@@ -5,9 +5,9 @@
   left: 0;
   width: 100%;
   height: 100%;
-  opacity: 0;
+  // opacity: 0;
   z-index: $modal;
-  transition: all $transition-ease-fast;
+  transition: all $transition-ease-extra-slow;
 }
 .m-modal {
   position: fixed;
@@ -19,9 +19,15 @@
   max-width: calc(100% - 2em);
   min-width: 200px;
   transform: translate(-50%, -50%);
-  opacity: 0;
+  // opacity: 0;
   perspective: 1000px;
-  transition: all $transition-ease-fast;
+  transition: all $transition-ease-extra-slow;
+}
+.m-modal-intro {
+  animation: grow $transition-ease-extra-slow 1;
+}
+.m-modal-outro {
+  animation: shirnk $transition-ease-extra-slow 1;
 }
 .m-modal-large {
   width: 65em;
@@ -31,7 +37,7 @@
 }
 .m-modal-wrapper {
   box-sizing: border-box;
-  transition: all $transition-ease-fast;
+  transition: all $transition-ease-extra-slow;
   .container {
     max-width: 100%;
   }

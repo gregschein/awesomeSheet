@@ -99,21 +99,23 @@
 }
 @keyframes grow {
   0% {
-    transform: translate(0, 0.2em) scale(0.95);
-    clip-path: circle(0 at 50% 100%);
+    // transform: translate(0, 0.2em) scale(0.95);
+    // clip-path: circle(0 at 0% 0%);
+    clip-path: polygon(25% 0, 100% 0%, 75% 100%, 0% 100%);
   }
   100% {
-    transform: translate(0, 0) scale(1);
-    clip-path: circle(100% at 50% 100%);
+    // transform: translate(0, 0) scale(1);
+    // clip-path: circle(160% at 0% 0%);
+    clip-path: polygon(25% 0, 100% 0%, 75% 100%, 0% 100%);
   }
 }
 @keyframes shirnk {
   0% {
-    transform: translate(0, 0) scale(1);
-    clip-path: circle(100% at 50% 100%);
+    // transform: translate(0, 0) scale(1);
+    clip-path: circle(160% at 100% 100%);
   }
   100% {
-    transform: translate(0, 0.2em) scale(0.95);
-    clip-path: circle(0 at 50% 100%);
+    // transform: translate(0, 0.2em) scale(0.95);
+    clip-path: circle(0 at 100% 100%);
   }
 }

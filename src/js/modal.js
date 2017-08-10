@@ -16,11 +16,13 @@ var modal = (function() {
     var modalShade = helper.e(".js-modal-shade");
     var modalWrapper = helper.e(".js-modal-wrapper");
     if (modal) {
-      getComputedStyle(modal).opacity;
-      helper.removeClass(modalWrapper, "is-unrotate-in");
-      helper.addClass(modalWrapper, "is-dropped-out");
-      helper.removeClass(modal, "is-opaque");
-      helper.addClass(modal, "is-transparent");
+      // getComputedStyle(modal).opacity;
+      // helper.removeClass(modalWrapper, "is-unrotate-in");
+      // helper.addClass(modalWrapper, "is-dropped-out");
+      // helper.removeClass(modal, "is-opaque");
+      helper.removeClass(modal, "m-modal-intro");
+      helper.addClass(modal, "m-modal-outro");
+      // helper.addClass(modal, "is-transparent");
     };
     if (modalShade) {
       getComputedStyle(modalShade).opacity;
@@ -45,7 +47,7 @@ var modal = (function() {
     };
 
     var modalWrapper = document.createElement("div");
-    modalWrapper.setAttribute("class", "m-modal-wrapper js-modal-wrapper is-unrotate-out");
+    modalWrapper.setAttribute("class", "m-modal-wrapper js-modal-wrapper");
 
     var modal = document.createElement("div");
     if (size == "large") {
@@ -56,10 +58,12 @@ var modal = (function() {
       modal.setAttribute("class", "m-modal js-modal");
     };
     modal.destroy = function() {
-      helper.removeClass(modalWrapper, "is-unrotate-in");
-      helper.addClass(modalWrapper, "is-dropped-out");
-      helper.removeClass(modal, "is-opaque");
-      helper.addClass(modal, "is-transparent");
+      // helper.removeClass(modalWrapper, "is-unrotate-in");
+      // helper.addClass(modalWrapper, "is-dropped-out");
+      // helper.removeClass(modal, "is-opaque");
+      helper.removeClass(modal, "m-modal-intro");
+      helper.addClass(modal, "m-modal-outro");
+      // helper.addClass(modal, "is-transparent");
     };
 
     var modalHeading = document.createElement("h1");
@@ -102,8 +106,8 @@ var modal = (function() {
     modalWrapper.appendChild(modalControls);
     modal.appendChild(modalWrapper);
 
-    modal.addEventListener("transitionend", function(event, elapsed) {
-      if (event.propertyName === "opacity" && getComputedStyle(this).opacity == 0) {
+    modal.addEventListener("animationend", function(event) {
+      if (event.animationName == "shirnk") {
         this.parentElement.removeChild(this);
       };
     }.bind(modal), false);
@@ -142,12 +146,13 @@ var modal = (function() {
     body.appendChild(modalShade);
     body.appendChild(modal);
 
-    getComputedStyle(modal).opacity;
+    // getComputedStyle(modal).opacity;
     getComputedStyle(modalShade).opacity;
-    helper.removeClass(modal, "is-transparent");
-    helper.addClass(modal, "is-opaque");
-    helper.removeClass(modalWrapper, "is-unrotate-out");
-    helper.addClass(modalWrapper, "is-unrotate-in");
+    // helper.removeClass(modal, "is-transparent");
+    // helper.addClass(modal, "is-opaque");
+    helper.addClass(modal, "m-modal-intro");
+    // helper.removeClass(modalWrapper, "is-unrotate-out");
+    // helper.addClass(modalWrapper, "is-unrotate-in");
     helper.removeClass(modalShade, "is-transparent");
     helper.addClass(modalShade, "is-opaque");
     modalHeading.focus(this);
