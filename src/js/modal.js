@@ -20,14 +20,16 @@ var modal = (function() {
       // helper.removeClass(modalWrapper, "is-unrotate-in");
       // helper.addClass(modalWrapper, "is-dropped-out");
       // helper.removeClass(modal, "is-opaque");
+      // helper.addClass(modal, "is-transparent");
       helper.removeClass(modal, "m-modal-intro");
       helper.addClass(modal, "m-modal-outro");
-      // helper.addClass(modal, "is-transparent");
     };
     if (modalShade) {
       getComputedStyle(modalShade).opacity;
       helper.removeClass(modalShade, "is-opaque");
       helper.addClass(modalShade, "is-transparent");
+      // helper.removeClass(modalShade, "m-modal-shade-intro");
+      // helper.addClass(modalShade, "m-modal-shade-outro");
     };
   };
 
@@ -44,6 +46,8 @@ var modal = (function() {
     modalShade.destroy = function() {
       helper.removeClass(modalShade, "is-opaque");
       helper.addClass(modalShade, "is-transparent");
+      // helper.removeClass(modalShade, "m-modal-shade-intro");
+      // helper.addClass(modalShade, "m-modal-shade-outro");
     };
 
     var modalWrapper = document.createElement("div");
@@ -107,7 +111,7 @@ var modal = (function() {
     modal.appendChild(modalWrapper);
 
     modal.addEventListener("animationend", function(event) {
-      if (event.animationName == "shirnk") {
+      if (event.animationName == "swipe-right-out") {
         this.parentElement.removeChild(this);
       };
     }.bind(modal), false);

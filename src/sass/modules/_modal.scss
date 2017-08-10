@@ -5,7 +5,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  // opacity: 0;
+  opacity: 0;
   z-index: $modal;
   transition: all $transition-ease-extra-slow;
 }
@@ -24,10 +24,16 @@
   transition: all $transition-ease-extra-slow;
 }
 .m-modal-intro {
-  animation: grow $transition-ease-extra-slow 1;
+  animation: swipe-right-in $transition-ease-extra-slow 1 0.1s backwards;
 }
 .m-modal-outro {
-  animation: shirnk $transition-ease-extra-slow 1;
+  animation: swipe-right-out $transition-ease-extra-slow 1;
+}
+.m-modal-shade-intro {
+  // animation: swipe-right-in $transition-ease-extra-slow 1;
+}
+.m-modal-shade-outro {
+  // animation: swipe-right-out $transition-ease-extra-slow 1 0.1s backwards;
 }
 .m-modal-large {
   width: 65em;

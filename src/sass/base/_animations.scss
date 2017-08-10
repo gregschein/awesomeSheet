@@ -97,25 +97,43 @@
     top: 0.5em;
   }
 }
-@keyframes grow {
+@keyframes swipe-right-in {
   0% {
     // transform: translate(0, 0.2em) scale(0.95);
     // clip-path: circle(0 at 0% 0%);
-    clip-path: polygon(25% 0, 100% 0%, 75% 100%, 0% 100%);
+    clip-path: polygon(0 0, 0 0, -20% 100%, 0 100%);
   }
   100% {
     // transform: translate(0, 0) scale(1);
-    // clip-path: circle(160% at 0% 0%);
-    clip-path: polygon(25% 0, 100% 0%, 75% 100%, 0% 100%);
+    // clip-path: circle(160% at 0 0%);
+    clip-path: polygon(0 0, 120% 0, 100% 100%, 0 100%);
   }
 }
-@keyframes shirnk {
+@keyframes swipe-right-out {
   0% {
     // transform: translate(0, 0) scale(1);
-    clip-path: circle(160% at 100% 100%);
+    // clip-path: circle(160% at 100% 100%);
+    clip-path: polygon(0 0, 100% 0, 100% 100%, -20% 100%);
   }
   100% {
     // transform: translate(0, 0.2em) scale(0.95);
-    clip-path: circle(0 at 100% 100%);
+    // clip-path: circle(0 at 100% 100%);
+    clip-path: polygon(120% 0, 100% 0, 100% 100%, 100% 100%);
+  }
+}
+@keyframes swipe-left-in {
+  0% {
+    clip-path: polygon(100% 0, 100% 0, 100% 100%, 120% 100%);
+  }
+  100% {
+    clip-path: polygon(-20% 0, 100% 0, 100% 100%, 0 100%);
+  }
+}
+@keyframes swipe-left-out {
+  0% {
+    clip-path: polygon(0 0, 100% 0, 120% 100%, 0 100%);
+  }
+  100% {
+    clip-path: polygon(0 0, -20% 0, 0 100%, 0 100%);
   }
 }
