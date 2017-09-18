@@ -1,7 +1,7 @@
 .m-fab {
   position: fixed;
-  bottom: 1.5rem;
-  right: 1.5rem;
+  bottom: 1.5em;
+  right: 1.5em;
   font-size: $font-size-root-100;
   z-index: $fab;
   transition: all $transition-ease-fast;
@@ -9,7 +9,7 @@
 }
 .is-onscreen-snack {
   .m-fab {
-    bottom: 6rem;
+    bottom: 6em;
   }
 }
 .is-nav-open {
@@ -62,32 +62,32 @@
 @media (min-width: $screen-sm) {
   .is-onscreen-snack {
     .m-fab {
-      bottom: 1.5rem;
+      bottom: 1em;
     }
   }
 }
 @media (min-width: $screen-md) {
   .m-fab {
-    bottom: 2rem;
-    right: 2rem;
+    bottom: 2em;
+    right: 2em;
   }
   .m-fab-button {
     font-size: $font-size-150;
   }
   .is-onscreen-snack {
     .m-fab {
-      bottom: 2rem;
+      bottom: 2em;
     }
   }
 }
 @media (min-width: $screen-lg) {
   .m-fab {
-    bottom: 3rem;
-    right: 3rem;
+    bottom: 3em;
+    right: 3em;
   }
   .is-onscreen-snack {
     .m-fab {
-      bottom: 3rem;
+      bottom: 3em;
     }
   }
 }

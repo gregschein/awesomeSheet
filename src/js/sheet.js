@@ -291,6 +291,7 @@ var sheet = (function() {
     wealth.render();
     totalBlock.render();
     textBlock.render();
+    activeEffects.render();
     display.render();
   };
 
@@ -324,6 +325,7 @@ var sheet = (function() {
     selectBlock.clear();
     textareaBlock.clear();
     spells.clear();
+    activeEffects.clear();
     display.clear();
   };
 
