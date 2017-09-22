@@ -29,7 +29,10 @@ var activeEffects = (function() {
   };
 
   function clear() {
-    // console.log(sheet.getCharacter().statistics.active_effects);
+    var activeEffects = helper.e(".js-active-effects");
+    while (activeEffects.lastChild) {
+      activeEffects.removeChild(activeEffects.lastChild);
+    };
   };
 
   // exposed methods
